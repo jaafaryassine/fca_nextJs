@@ -1,6 +1,6 @@
 import { Modal, Input, Checkbox, Video, Card, Col, Row, Button, Text, Grid, Container, Spacer } from "@nextui-org/react";
 import Image from 'next/image'
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Instructions from "./instructions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Mail } from "./mail";
@@ -40,7 +40,7 @@ export default function TacticResult({ result, all_instructions }) {
       }
       let status;
       const getAccountStatus = async () => {
-        const res = await fetch('http://localhost:8001/JEE_api_war/StatusServlet?user_id=aStL7ygySuQ5NOxJdtjJup9AwqB3');
+        const res = await fetch('http://localhost:8001/JEE_api_war/StatusServlet?user_id='+user.uid);
         const data = await res.json();
         setAccountStatus(data.userStatus)
     }
@@ -52,7 +52,7 @@ export default function TacticResult({ result, all_instructions }) {
         <Container>
             <Spacer x={2} />
             <Text h1 size={40} color="secondary" css={{ textAlign: "center" }} weight="bold">
-                Formation recommendée {result}
+                 Formation recommendée {result}
             </Text>
             <Spacer x={3} />
             <Row gap={3}>
