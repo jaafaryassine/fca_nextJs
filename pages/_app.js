@@ -1,7 +1,9 @@
 // 1. import `NextUIProvider` component
 import * as React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import { initFirebase } from '@/firebase/firebaseApp'
+import { initFirebase } from '@/firebase/firebaseApp';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 function MyApp({ Component, pageProps }) {
   const app = initFirebase();
