@@ -1,8 +1,8 @@
-// 1. import `NextUIProvider` component
 import * as React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { initFirebase } from '@/firebase/firebaseApp';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/bg-video.css';
 
 
 function MyApp({ Component, pageProps }) {

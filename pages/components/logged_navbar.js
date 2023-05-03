@@ -26,9 +26,6 @@ export default function LoggedNavbar() {
                 </Text>
             </Navbar.Brand>
             <Navbar.Content>
-                <Navbar.Link href="/league-stats.js">Stats</Navbar.Link>
-            </Navbar.Content>
-            <Navbar.Content>
                 <Navbar.Item>
                     <Dropdown placement="bottom-left">
                         <Dropdown.Trigger>

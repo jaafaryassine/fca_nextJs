@@ -23,36 +23,41 @@ export default function TacticResult({ result, all_instructions }) {
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
         signInWithPopup(auth, provider)
-          .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            console.log(user);
-            router.push("/")
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
-          }).catch((error) => {
-            
-            // ...
-          });
-      }
-      let status;
-      const getAccountStatus = async () => {
-        const res = await fetch('http://localhost:8001/JEE_api_war/StatusServlet?user_id='+user.uid);
-        const data = await res.json();
-        setAccountStatus(data.userStatus)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                console.log(user);
+                router.push("/")
+                // IdP data available using getAdditionalUserInfo(result)
+                // ...
+            }).catch((error) => {
+
+                // ...
+            });
+    }
+    /*
+    let status;
+    const getAccountStatus = async () => {
+        console.log(user);
+        if (user != null) {
+            const res = await fetch('http://localhost:8001/JEE_api_war/StatusServlet?user_id=' + user.uid);
+            const data = await res.json();
+            setAccountStatus(data.userStatus)
+        }
     }
     useEffect(() => {
         getAccountStatus();
     }, []);
-    
+    */
+   
     return <>
         <Container>
             <Spacer x={2} />
             <Text h1 size={40} color="secondary" css={{ textAlign: "center" }} weight="bold">
-                 Formation recommendée {result}
+                Formation recommendée {result}
             </Text>
             <Spacer x={3} />
             <Row gap={3}>
@@ -145,7 +150,7 @@ export default function TacticResult({ result, all_instructions }) {
             </Modal.Header>
             <Modal.Body>
                 {all_instructions.length == 0 && <Text>You don't have any instructions for this tactic</Text>}
-                <Instructions all_instructions={all_instructions}/>
+                <Instructions all_instructions={all_instructions} />
             </Modal.Body>
             <Modal.Footer>
                 <Button auto flat color="error" onPress={closeHandler}>
@@ -159,57 +164,57 @@ export default function TacticResult({ result, all_instructions }) {
 
 
         {!user && <Modal
-        closeButton
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
-      >
-        <Modal.Header>
-          <Text id="modal-title" size={18}>
-            Welcome to
-            <Text b size={18}>
-              NextUI
-            </Text>
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Input
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Email"
-            contentLeft={<Mail fill="currentColor" />}
-          />
-          <Input
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Password"
-            contentLeft={<Password fill="currentColor" />}
-          />
-          <Row justify="space-between">
-            <Checkbox>
-              <Text size={14}>Remember me</Text>
-            </Checkbox>
-            <Text size={14}>Forgot password?</Text>
-          </Row>
-          <Button bordered onPress={signIn} css={{ color: "#DB4437", borderColor: "#DB4437" }}>
-            Sign in with Google
-          </Button>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onPress={closeHandler}>
-            Close
-          </Button>
-          <Button auto onPress={closeHandler}>
-            Sign in
-          </Button>
-        </Modal.Footer>
-      </Modal>}
+            closeButton
+            aria-labelledby="modal-title"
+            open={visible}
+            onClose={closeHandler}
+        >
+            <Modal.Header>
+                <Text id="modal-title" size={18}>
+                    Welcome to
+                    <Text b size={18}>
+                        NextUI
+                    </Text>
+                </Text>
+            </Modal.Header>
+            <Modal.Body>
+                <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Email"
+                    contentLeft={<Mail fill="currentColor" />}
+                />
+                <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Password"
+                    contentLeft={<Password fill="currentColor" />}
+                />
+                <Row justify="space-between">
+                    <Checkbox>
+                        <Text size={14}>Remember me</Text>
+                    </Checkbox>
+                    <Text size={14}>Forgot password?</Text>
+                </Row>
+                <Button bordered onPress={signIn} css={{ color: "#DB4437", borderColor: "#DB4437" }}>
+                    Sign in with Google
+                </Button>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button auto flat color="error" onPress={closeHandler}>
+                    Close
+                </Button>
+                <Button auto onPress={closeHandler}>
+                    Sign in
+                </Button>
+            </Modal.Footer>
+        </Modal>}
 
     </>
 }
