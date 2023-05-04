@@ -52,8 +52,8 @@ export default function LeagueStatsPage() {
         {!user && <HomeNavbar />}
         {user && <LoggedNavbar />}
         <Spacer y={3} />
-        <Container css={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Card css={{ w: "70vw" }}>
+        <Container css={{ display: "flex", justifyContent: "center", h: "100vh" }}>
+            <Card css={{ w: "70vw", h: "200px" }}>
                 <Card.Header><Text b>Choose a league</Text></Card.Header>
                 <Card.Body>
                     <select class="form-select" id="league" aria-label="Default select example" onChange={() => console.log(document.getElementById("league").value)}>

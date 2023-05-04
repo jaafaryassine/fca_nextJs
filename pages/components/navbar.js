@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Row, Checkbox, Input, Navbar, Button, Link, Text } from "@nextui-org/react";
+import { Modal, Row, Checkbox, Input, Navbar, Button, Link, Text, Image } from "@nextui-org/react";
 import { Mail } from "./mail";
 import { Password } from "./password";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -21,11 +21,11 @@ export default function HomeNavbar() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           user_id: user.uid,
           email: user.email,
           name: user.displayName,
-         })
+        })
       });
       console.log("addeeeeeeeed")
     } catch (error) {
@@ -45,18 +45,25 @@ export default function HomeNavbar() {
         addUserToDb(user);
         router.push("/")
       }).catch((error) => {
-        
+
         // ...
       });
   }
-  
+
   return (
     <>
       <Navbar isBordered variant={"floating"}>
         <Navbar.Brand>
-          <Text b color="inherit" hideIn="xs">
-            ACME
-          </Text>
+          <Link href="/">
+            <Image src="/images/logo.png" width={150} />
+            <Text hideIn="xs" css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%", }} weight="bold" >
+
+
+            </Text>
+            <Text b color="inherit" hideIn="xs">
+              Football AI
+            </Text>
+          </Link>
         </Navbar.Brand>
         <Navbar.Content>
           <Navbar.Item>

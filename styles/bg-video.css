@@ -7,3 +7,7 @@
   background-size: cover;
 }
 
+.home-bg{
+  background-image: url("/images/heading.jpg");
+  background-size: cover;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, User, Dropdown, Button, Link, Text, Avatar } from "@nextui-org/react";
+import { Navbar, User, Dropdown, Button, Link, Text, Avatar, Image } from "@nextui-org/react";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -18,12 +18,16 @@ export default function LoggedNavbar() {
     return (
         <Navbar isBordered variant={"floating"}>
             <Navbar.Brand>
-                <Text hideIn="xs" css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%", }} weight="bold" >
-                    Football Coach Assistant
+                <Link href="/">
+                    <Image src="/images/logo.png" width={150} />
+                    <Text hideIn="xs" css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%", }} weight="bold" >
 
-                </Text>
-                <Text b color="inherit" hideIn="xs">
-                </Text>
+
+                    </Text>
+                    <Text b color="inherit" hideIn="xs">
+                        Football AI
+                    </Text>
+                </Link>
             </Navbar.Brand>
             <Navbar.Content>
                 <Navbar.Item>

@@ -11,7 +11,9 @@ function MyApp({ Component, pageProps }) {
   return (
     // 2. Use at the root of your app
     <NextUIProvider>
-      <Component {...pageProps} />
+      <div className='home-bg'>
+        <Component {...pageProps} />
+      </div>
     </NextUIProvider>
   );
 }

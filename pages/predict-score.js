@@ -9,11 +9,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCircleArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function PredictScorePage() {
-    const teams = ["Manchester City", "Liverpool", "Everton", "Arsenal"];
+    const teams = ["Manchester City", "Liverpool", "Everton", "Arsenal","Bournemouth","Chelsea","Southampton","Brighton","Wolverhampton","Fulham","Brentford"];
     const [teamsCheck, setTeamsCheck] = useState([]);
     const [teamsCheckB, setTeamsCheckB] = useState([]);
+    const [choosedTeamA,setChoosedTeamA] = useState("");
+    const [choosedTeamB,setChoosedTeamB] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [statsData, setStatsData] = useState([]);
+    const [visible, setVisible] = useState(false);
+    const [result, setResult] = useState("");
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
 
@@ -35,10 +38,33 @@ export default function PredictScorePage() {
         setTeamsCheckB(newArr);
         //newArr.findIndex((element) => element==true);
     }
-    const predictScore = () => {
+    const predictScore = async () => {
         let teamA = teams[teamsCheck.findIndex((element) => element==true)];
         let teamB = teams[teamsCheckB.findIndex((element) => element==true)];
-        alert(teamA + " VS " + teamB);
+        setChoosedTeamA(teamA);
+        setChoosedTeamB(teamB);
+        setIsLoading(true);
+        setVisible(true)
+        const res = await fetch("http://localhost:8001/JEE_api_war/PredictScoreServlet?teamA=" + teamA + "&teamB=" + teamB);
+        const data = await res.json();
+        let result = "";
+        switch (data.result) {
+            case "Draw":
+                result = "There is no winner. Draw for this Match"
+                break;
+            case "Home":
+            result = "The Winner is " + teamA;
+                break;
+            case "Draw":
+            result = "The Winner is " + teamB;
+                break;
+        
+            default:
+                break;
+        }
+        setResult(result);
+        setIsLoading(false);
+        console.log(data);
     }
 
     const teamsComponent = teams.map((item, index) => (
@@ -59,7 +85,7 @@ export default function PredictScorePage() {
     return <>
         {!user && <HomeNavbar />}
         {user && <LoggedNavbar />}
-        <Container>
+        <Container css={{h: "100vh"}}>
             <Spacer />
             <div className="row">
                 <div className="col-6">
@@ -92,5 +118,32 @@ export default function PredictScorePage() {
 
 
         </Container>
+
+        <Modal
+            scroll
+            closeButton
+            aria-labelledby="modal-title"
+            open={visible}
+            onClose={() => setVisible(false)}
+            width="70vw"
+            height="90vh">
+            <Modal.Header>
+                <Text b h4>Predicting score based on actual data</Text>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="row">
+                    <div className="col">
+                        {choosedTeamA && <Image width={100} src={`/images/teams/${choosedTeamA}.png`} />}
+                    </div>
+                    <div className="col">
+                        {choosedTeamB && <Image width={100} src={`/images/teams/${choosedTeamB}.png`} />}
+                    </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {isLoading && <Loading>Our model is working for predicting the score. This may take a few minutes. Please wait...</Loading>}
+                    {!isLoading && <Text>{result}</Text>}
+                </div>
+            </Modal.Body>
+        </Modal>
     </>
 }
