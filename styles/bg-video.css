@@ -7,7 +7,60 @@
   background-size: cover;
 }
 
-.home-bg{
+.home-bg,.bg-field{
   background-image: url("/images/heading.jpg");
   background-size: cover;
+}
+
+.team-animated{
+  transition: transform 0.8s ease-in-out;
+  transform: scale(1.7);
+}
+
+.champion-icon {
+  animation-duration: 2s;
+  animation-name: bounceIn;
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  80% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+/* Style the scrollbar for the div */
+.teams-select::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+}
+
+/* Style the scrollbar track for the div */
+.teams-select::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* color of the scrollbar track */
+}
+
+/* Style the scrollbar thumb for the div */
+.teams-select::-webkit-scrollbar-thumb {
+  background-color: #888; /* color of the scrollbar thumb */
+  border-radius: 8px; /* radius of the scrollbar thumb */
+}
+
+/* Style the scrollbar thumb on hover for the div */
+.teams-select::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* color of the scrollbar thumb on hover */
 }

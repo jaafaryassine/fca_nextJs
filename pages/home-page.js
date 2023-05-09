@@ -15,18 +15,16 @@ export default function HomePage() {
             {!user && <HomeNavbar />}
             {user && <LoggedNavbar />}
             <Spacer y={3} />
-            <Container css={{h: "100vh"}}>
+            <Container css={{ h: "100vh" }}>
                 <div className='row'>
                     <div className='col-4'>
                         <Card isPressable css={{ w: "100%", h: "400px" }} onPress={() => router.push("/coach-assistant")}>
                             <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                                 <Col>
                                     <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
-                                        GET
+                                        GET Your coach Assistant
                                     </Text>
-                                    <Text h3 color='white'>
-                                        Your Coach Assistant
-                                    </Text>
+                                    
                                 </Col>
                             </Card.Header>
                             <Card.Body css={{ p: 0 }}>
@@ -79,9 +77,7 @@ export default function HomePage() {
                                     <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
                                         Get
                                     </Text>
-                                    <Text h3 color='white'>
-                                        Leagues statistics
-                                    </Text>
+                                    
                                 </Col>
                             </Card.Header>
                             <Card.Body css={{ p: 0 }}>
@@ -132,9 +128,7 @@ export default function HomePage() {
                                     <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
                                         Predict
                                     </Text>
-                                    <Text h3 color='white'>
-                                        Score Matches
-                                    </Text>
+                                    
                                 </Col>
                             </Card.Header>
                             <Card.Body css={{ p: 0 }}>

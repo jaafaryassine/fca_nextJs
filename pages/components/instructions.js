@@ -69,7 +69,7 @@ export default function Instructions({ all_instructions }) {
                         Close
                     </Button>
                     <Button auto onPress={closeHandler}>
-                        Sign in
+                        Good
                     </Button>
                 </Modal.Footer>
             </Modal>

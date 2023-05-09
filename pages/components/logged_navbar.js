@@ -52,10 +52,21 @@ export default function LoggedNavbar() {
                                     {user.email}
                                 </Text>
                             </Dropdown.Item>
-                            <Dropdown.Item key="settings" withDivider>
-                                My Settings
+                            <Dropdown.Item key="coach" withDivider>
+                                <Link color="text" href="/coach-assistant">
+                                    My Coach Assistant
+                                </Link>
                             </Dropdown.Item>
-                            <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+                            <Dropdown.Item key="league">
+                                <Link color="text" href="/league-stats">
+                                    Get Leagues Statistics
+                                </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Item key="predict">
+                                <Link color="text" href="/predict-score">
+                                    Predict Scores
+                                </Link>
+                            </Dropdown.Item>
                             <Dropdown.Item key="logout" color="error" withDivider>
                                 <Button light onPress={sign_out}>Log Out</Button>
                             </Dropdown.Item>

@@ -9,11 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCircleArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function PredictScorePage() {
-    const teams = ["Manchester City", "Liverpool", "Everton", "Arsenal","Bournemouth","Chelsea","Southampton","Brighton","Wolverhampton","Fulham","Brentford"];
+    const teams = ["Liverpool", "Everton", "Arsenal", "Bournemouth", "Chelsea", "Southampton", "Brighton", "Fulham", "Brentford"];
     const [teamsCheck, setTeamsCheck] = useState([]);
     const [teamsCheckB, setTeamsCheckB] = useState([]);
-    const [choosedTeamA,setChoosedTeamA] = useState("");
-    const [choosedTeamB,setChoosedTeamB] = useState("");
+    const [choosedTeamA, setChoosedTeamA] = useState("");
+    const [choosedTeamB, setChoosedTeamB] = useState("");
+    const [winner, setWinner] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [result, setResult] = useState("");
@@ -39,8 +40,9 @@ export default function PredictScorePage() {
         //newArr.findIndex((element) => element==true);
     }
     const predictScore = async () => {
-        let teamA = teams[teamsCheck.findIndex((element) => element==true)];
-        let teamB = teams[teamsCheckB.findIndex((element) => element==true)];
+        let teamA = teams[teamsCheck.findIndex((element) => element == true)];
+        let teamB = teams[teamsCheckB.findIndex((element) => element == true)];
+        setWinner("");
         setChoosedTeamA(teamA);
         setChoosedTeamB(teamB);
         setIsLoading(true);
@@ -50,15 +52,18 @@ export default function PredictScorePage() {
         let result = "";
         switch (data.result) {
             case "Draw":
-                result = "There is no winner. Draw for this Match"
+                result = "There is no winner. Draw for this Match";
+                setWinner("draw");
                 break;
             case "Home":
-            result = "The Winner is " + teamA;
+                result = "The Winner is " + teamA;
+                setWinner("teamA");
                 break;
-            case "Draw":
-            result = "The Winner is " + teamB;
+            case "Away":
+                result = "The Winner is " + teamB;
+                setWinner("teamB");
                 break;
-        
+
             default:
                 break;
         }
@@ -69,30 +74,30 @@ export default function PredictScorePage() {
 
     const teamsComponent = teams.map((item, index) => (
         <div style={{ position: "relative" }}>
-            {teamsCheck[index] && <FontAwesomeIcon icon={faCheckCircle} style={{ position: "absolute", top: "50", left: "50", zIndex:1, color: "green" }} />}
+            {teamsCheck[index] && <FontAwesomeIcon icon={faCheckCircle} style={{ position: "absolute", top: "50", left: "50", zIndex: 1, color: "green" }} />}
             <Image width={200} onClick={() => chooseTeam(index)} src={`/images/teams/${item}.png`} />
         </div>
     ));
     const teamsComponentB = teams.map((item, index) => (
         <div style={{ position: "relative" }}>
-            {teamsCheckB[index] && <FontAwesomeIcon icon={faCheckCircle} style={{ position: "absolute", top: "50", left: "50", zIndex:1, color: "green" }} />}
+            {teamsCheckB[index] && <FontAwesomeIcon icon={faCheckCircle} style={{ position: "absolute", top: "50", left: "50", zIndex: 1, color: "green" }} />}
             <Image width={200} onClick={() => chooseTeamB(index)} src={`/images/teams/${item}.png`} />
         </div>
     ));
 
 
-    
+
     return <>
         {!user && <HomeNavbar />}
         {user && <LoggedNavbar />}
-        <Container css={{h: "100vh"}}>
+        <Container css={{ h: "100vh" }}>
             <Spacer />
             <div className="row">
                 <div className="col-6">
                     <Card>
                         <Card.Header>Choose home team</Card.Header>
                         <Card.Divider />
-                        <Card.Body css={{ h: "400px" }}>
+                        <Card.Body css={{ h: "440px" }} className="teams-select">
                             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {teamsComponent}
                             </div>
@@ -101,9 +106,9 @@ export default function PredictScorePage() {
                 </div>
                 <div className="col-6">
                     <Card>
-                        <Card.Header>Choose home team</Card.Header>
+                        <Card.Header>Choose away team</Card.Header>
                         <Card.Divider />
-                        <Card.Body css={{ h: "400px" }}>
+                        <Card.Body css={{ h: "440px" }} className="teams-select">
                             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {teamsComponentB}
                             </div>
@@ -111,7 +116,7 @@ export default function PredictScorePage() {
                     </Card>
                 </div>
             </div>
-            <Spacer/>
+            <Spacer />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Button color={"success"} onPress={() => predictScore()}>Predict score</Button>
             </div>
@@ -131,12 +136,20 @@ export default function PredictScorePage() {
                 <Text b h4>Predicting score based on actual data</Text>
             </Modal.Header>
             <Modal.Body>
+                <Spacer/>
                 <div className="row">
                     <div className="col">
-                        {choosedTeamA && <Image width={100} src={`/images/teams/${choosedTeamA}.png`} />}
+                        {choosedTeamA && <Image width={100} src={`/images/teams/${choosedTeamA}.png`} className={winner == "teamA" ? "team-animated" : ""} />}
+                        {winner == "teamA" && <Image width={60} src="/images/icons/trophy.png" className="champion-icon"/>}
+                    </div>
+                    <div className="col text-center">
+                        {winner == "draw" && <Image width={60} src="/images/icons/draw.png" className="champion-icon"/>}
+                        {winner == "draw" && <Text h3 css={{ textGradient: "45deg, $blue600 -20%, $green600 100%"}}  weight="bold">Draw</Text>}
+
                     </div>
                     <div className="col">
-                        {choosedTeamB && <Image width={100} src={`/images/teams/${choosedTeamB}.png`} />}
+                        {choosedTeamB && <Image width={100} src={`/images/teams/${choosedTeamB}.png`} className={winner == "teamB" ? "team-animated" : ""} />}
+                        {winner == "teamB" && <Image width={60} src="/images/icons/trophy.png" className="champion-icon"/>}
                     </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
